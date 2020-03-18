@@ -1,5 +1,5 @@
-#This code generates random matrices from U{-1,1} and measures the average singular values.
-from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
+#This code generates random matrices from P  and measures the average singular values.
+from sage.probability.probability_distribution import GeneralDiscreteDistribution
 n = 512; its = 50; Listn = []; List1 = []; m = 256*24;
 P = [0.25, 0.5, 0.25]; scale = 1; sigma = RR(scale/sqrt(2))
 X = GeneralDiscreteDistribution(P)
@@ -10,7 +10,7 @@ s1SampleVar = 0; snSampleVar = 0;
 for k in range(0, its):
     for i in range(0, n):
         for j in range(0, m):
-            M[i,j] = X()
+            M[i,j] = X.get_random_element()-1
     [U, D, V] = M.SVD()
     List1 = List1 + [D[0,0]]
     Listn = Listn + [D[n-1,n-1]]
